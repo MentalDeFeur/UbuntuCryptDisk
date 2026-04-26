@@ -61,7 +61,7 @@ sudo apt-get install -f          # installe les dépendances manquantes
 ### Depuis les sources
 
 ```bash
-git clone https://github.com/joffrey-trn/UbuntuCryptDisk.git
+https://github.com/MentalDeFeur/UbuntuCryptDisk.git
 cd UbuntuCryptDisk
 
 # Dépendances (backend clevis)
