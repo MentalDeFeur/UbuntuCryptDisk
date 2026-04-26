@@ -1,0 +1,25 @@
+Package: ubuntu-tpm2disk
+Version: 1.0.0
+Section: admin
+Priority: optional
+Architecture: all
+Depends: python3 (>= 3.8),
+         tpm2-tools,
+         cryptsetup,
+         util-linux,
+         python3-pyqt5 | python3-qt5,
+         clevis-luks | systemd (>= 248)
+Recommends: clevis-tpm2, clevis-initramfs
+Suggests: clevis-tpm2, clevis-initramfs
+Maintainer: UbuntuTPM2Disk Project <noreply@example.com>
+Description: Gestionnaire de déverrouillage automatique LUKS via TPM2
+ Outil graphique et en ligne de commande pour lier des partitions LUKS chiffrées
+ au module TPM2 du matériel, permettant un démarrage automatique sans saisie
+ de mot de passe. Utilise clevis-tpm2 ou systemd-cryptenroll comme backend.
+ .
+ Fonctionnalités :
+  - Détection automatique des partitions LUKS
+  - Liaison LUKS → TPM2 via clevis ou systemd-cryptenroll
+  - Gestion des PCR (Platform Configuration Registers)
+  - Configuration automatique de /etc/crypttab et initramfs
+  - Interface graphique PyQt5 et interface CLI

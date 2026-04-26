@@ -1,0 +1,25 @@
+#!/bin/bash
+set -e
+
+case "$1" in
+    configure)
+        # Rendre les scripts exécutables
+        chmod +x /usr/bin/ubuntu-tpm2disk
+        chmod +x /usr/bin/ubuntu-tpm2disk-gui
+
+        echo ""
+        echo "=== UbuntuTPM2Disk installé ==="
+        echo ""
+        echo "Vérifiez les dépendances :"
+        echo "  sudo ubuntu-tpm2disk check"
+        echo ""
+        echo "Lier une partition LUKS au TPM2 :"
+        echo "  sudo ubuntu-tpm2disk bind /dev/sdXY"
+        echo ""
+        echo "Interface graphique :"
+        echo "  sudo ubuntu-tpm2disk-gui"
+        echo ""
+        ;;
+esac
+
+exit 0

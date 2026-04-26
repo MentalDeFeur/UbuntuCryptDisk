@@ -1,0 +1,25 @@
+# Environnements Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# Paquets construits
+*.deb
+
+# Répertoire de build temporaire
+ubuntu-tpm2disk_*/
+
+# Ancienne version (crypttab/keyfile, remplacée par tpm2)
+ubuntu_cryptdisk.py
+ubuntu_cryptdisk_gui.py
+install.sh
+luks-unlock.service
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*~
