@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-UbuntuTPM2Disk GUI - Interface graphique pour la gestion LUKS via TPM2
+AutoUnlockCryptnux GUI - Interface graphique pour la gestion LUKS via TPM2
 """
 
 import sys
@@ -27,7 +27,7 @@ from PyQt5.QtWidgets import (
 from PyQt5.QtCore import Qt, QThread, pyqtSignal
 from PyQt5.QtGui import QFont, QColor
 
-import ubuntu_tpm2disk as tpm2
+import auto_unlock_cryptnux as tpm2
 
 
 # ---------------------------------------------------------------------------
@@ -144,7 +144,7 @@ class BindDialog(QDialog):
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("UbuntuTPM2Disk — Déverrouillage LUKS via TPM2")
+        self.setWindowTitle("AutoUnlockCryptnux — Déverrouillage LUKS via TPM2")
         self.setMinimumSize(860, 600)
         self._devices = []
         self._build_ui()

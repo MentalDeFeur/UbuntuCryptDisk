@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=AutoUnlockCryptnux
+GenericName=Gestionnaire LUKS TPM2
+Comment=Déverrouillage automatique des partitions LUKS via TPM2
+Exec=pkexec io.github.mentaldefeur.AutoUnlockCryptnux
+Icon=drive-harddisk-encrypted
+Terminal=false
+Categories=System;Security;Utility;
+Keywords=LUKS;TPM2;chiffrement;cryptsetup;disque;
+X-Flatpak=io.github.mentaldefeur.AutoUnlockCryptnux

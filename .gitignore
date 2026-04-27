@@ -6,17 +6,24 @@ __pycache__/
 *.pyo
 *.egg-info/
 
-# Paquets construits
+# Paquets construits (Debian et Flatpak)
 *.deb
+*.flatpak
 
 # Répertoire de build temporaire
 ubuntu-tpm2disk_*/
+_build
+_flatpak_build
+_flatpak_repo
 
 # Ancienne version (crypttab/keyfile, remplacée par tpm2)
 ubuntu_cryptdisk.py
 ubuntu_cryptdisk_gui.py
 install.sh
 luks-unlock.service
+
+# Cache de construction
+.ccache/
 
 # IDE
 .vscode/

@@ -1,4 +1,4 @@
-Package: ubuntu-tpm2disk
+Package: auto-unlock-cryptnux
 Version: 1.0.0
 Section: admin
 Priority: optional
@@ -11,7 +11,7 @@ Depends: python3 (>= 3.8),
          clevis-luks | systemd (>= 248)
 Recommends: clevis-tpm2, clevis-initramfs
 Suggests: clevis-tpm2, clevis-initramfs
-Maintainer: UbuntuTPM2Disk Project <noreply@example.com>
+Maintainer: AutoUnlockCryptnux Project <noreply@example.com>
 Description: Gestionnaire de déverrouillage automatique LUKS via TPM2
  Outil graphique et en ligne de commande pour lier des partitions LUKS chiffrées
  au module TPM2 du matériel, permettant un démarrage automatique sans saisie

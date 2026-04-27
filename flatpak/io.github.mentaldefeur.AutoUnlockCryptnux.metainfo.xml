@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.mentaldefeur.AutoUnlockCryptnux</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>MIT</project_license>
+  <name>AutoUnlockCryptnux</name>
+  <summary>Gestionnaire de déverrouillage automatique LUKS via TPM2</summary>
+  <description>
+    <p>
+      Outil graphique et CLI pour déverrouiller automatiquement les partitions 
+      LUKS chiffrées au démarrage via le module TPM2 — sans mot de passe, 
+      sans fichier clé stocké en clair sur le disque.
+    </p>
+    <p>
+      La clé LUKS est scellée dans le TPM2 et liée à des registres PCR 
+      (Platform Configuration Registers). À chaque démarrage, si la configuration 
+      du système correspond aux valeurs PCR enregistrées (Secure Boot actif, 
+      firmware inchangé…), le TPM2 libère automatiquement la clé. En cas de 
+      modification suspecte, le mot de passe LUKS reste requis.
+    </p>
+    <p>Caractéristiques :</p>
+    <ul>
+      <li>Détection automatique des partitions LUKS</li>
+      <li>Liaison LUKS ↔ TPM2 via clevis ou systemd-cryptenroll</li>
+      <li>Gestion des PCR (Platform Configuration Registers)</li>
+      <li>Configuration automatique de /etc/crypttab et initramfs</li>
+      <li>Interface graphique PyQt5 et interface CLI</li>
+      <li>Support Secure Boot et intégrité du firmware</li>
+    </ul>
+  </description>
+  <url type="homepage">https://github.com/MentalDeFeur/AutoUnlockCryptnux</url>
+  <url type="bugtracker">https://github.com/MentalDeFeur/AutoUnlockCryptnux/issues</url>
+  <url type="help">https://github.com/MentalDeFeur/AutoUnlockCryptnux/wiki</url>
+  <content_rating type="oars-1.1" />
+  <releases>
+    <release version="1.0.0" date="2026-04-27">
+      <description>
+        <p>Version initiale compatible Flatpak pour Fedora</p>
+        <ul>
+          <li>Support Clevis TPM2</li>
+          <li>Support systemd-cryptenroll</li>
+          <li>Interface graphique PyQt5</li>
+          <li>Gestion PCR flexible</li>
+        </ul>
+      </description>
+    </release>
+  </releases>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/MentalDeFeur/AutoUnlockCryptnux/main/docs/screenshot.png</image>
+    </screenshot>
+  </screenshots>
+  <categories>
+    <category>System</category>
+    <category>Utility</category>
+  </categories>
+  <requires>
+    <control>input_control</control>
+    <control>keyboard</control>
+  </requires>
+  <developer id="io.github.mentaldefeur">
+    <name>MentalDeFeur</name>
+  </developer>
+</component>

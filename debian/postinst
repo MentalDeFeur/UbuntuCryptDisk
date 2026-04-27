@@ -4,20 +4,20 @@ set -e
 case "$1" in
     configure)
         # Rendre les scripts exécutables
-        chmod +x /usr/bin/ubuntu-tpm2disk
-        chmod +x /usr/bin/ubuntu-tpm2disk-gui
+        chmod +x /usr/bin/auto-unlock-cryptnux
+        chmod +x /usr/bin/auto-unlock-cryptnux-gui
 
         echo ""
-        echo "=== UbuntuTPM2Disk installé ==="
+        echo "=== AutoUnlockCryptnux installé ==="
         echo ""
         echo "Vérifiez les dépendances :"
-        echo "  sudo ubuntu-tpm2disk check"
+        echo "  sudo auto-unlock-cryptnux check"
         echo ""
         echo "Lier une partition LUKS au TPM2 :"
-        echo "  sudo ubuntu-tpm2disk bind /dev/sdXY"
+        echo "  sudo auto-unlock-cryptnux bind /dev/sdXY"
         echo ""
         echo "Interface graphique :"
-        echo "  sudo ubuntu-tpm2disk-gui"
+        echo "  sudo auto-unlock-cryptnux-gui"
         echo ""
         ;;
 esac

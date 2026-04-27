@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-UbuntuTPM2Disk - Déverrouillage automatique LUKS via TPM2
+AutoUnlockCryptnux - Déverrouillage automatique LUKS via TPM2
 Lie des partitions LUKS chiffrées au module TPM2 pour un démarrage
 sans saisie de mot de passe. Supporte clevis-tpm2 et systemd-cryptenroll.
 """
@@ -20,7 +20,7 @@ from pathlib import Path
 
 def check_root():
     if os.geteuid() != 0:
-        print("Ce programme doit être exécuté en tant que root: sudo ubuntu-tpm2disk")
+        print("Ce programme doit être exécuté en tant que root: sudo auto-unlock-cryptnux")
         sys.exit(1)
 
 
@@ -411,7 +411,7 @@ def cmd_check(args):
 
 def interactive_menu():
     while True:
-        print("\n=== UbuntuTPM2Disk ===")
+        print("\n=== AutoUnlockCryptnux ===")
         print("  1. Lister les partitions LUKS")
         print("  2. Lier une partition au TPM2")
         print("  3. Supprimer une liaison TPM2")
@@ -450,7 +450,7 @@ def interactive_menu():
 
 def main():
     parser = argparse.ArgumentParser(
-        prog='ubuntu-tpm2disk',
+        prog='auto-unlock-cryptnux',
         description='Déverrouillage automatique LUKS via TPM2'
     )
     sub = parser.add_subparsers(dest='command')

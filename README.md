@@ -1,13 +1,20 @@
-# UbuntuTPM2Disk
+# AutoUnlockCryptnux
 
 ![Ubuntu](https://img.shields.io/badge/Ubuntu-20.04%2B-E95420?logo=ubuntu&logoColor=white)
+![Fedora](https://img.shields.io/badge/Fedora-38%2B-0B57A6?logo=fedora&logoColor=white)
+![Flatpak](https://img.shields.io/badge/Flatpak-Compatible-4A90E2?logo=flathub&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3.8%2B-3776AB?logo=python&logoColor=white)
 ![License](https://img.shields.io/badge/Licence-MIT-green)
 ![TPM2](https://img.shields.io/badge/TPM2-requis-blue)
 
-Outil graphique et CLI pour Ubuntu permettant de déverrouiller automatiquement les
+Outil graphique et CLI permettant de déverrouiller automatiquement les
 partitions **LUKS** au démarrage via le module **TPM2** — sans mot de passe, sans
 fichier clé stocké en clair sur le disque.
+
+**Distributions supportées :**
+- 🔷 **Ubuntu 20.04+** (format .deb)
+- 🔶 **Fedora 38+** (format RPM ou Flatpak)
+- 📦 **Toute distro Linux** (Flatpak)
 
 ![Capture d'écran de l'interface](docs/screenshot.png)
 
@@ -45,35 +52,51 @@ Vérifier la présence du TPM2 :
 ```bash
 ls /dev/tpm*
 ```
-
----
-
-## Installation
-
-### Via le paquet .deb
+Ubuntu (Format .deb)
 
 ```bash
-# Télécharger la dernière release puis :
-sudo dpkg -i ubuntu-tpm2disk_1.0.0_all.deb
+# Via le paquet .deb
+sudo dpkg -i auto-unlock-cryptnux_1.0.0_all.deb
 sudo apt-get install -f          # installe les dépendances manquantes
 ```
 
-### Depuis les sources
+Voir [UBUNTU_README.md](UBUNTU_README.md) pour les détails d'installation depuis les sources.
+
+### Fedora (Format RPM ou Flatpak)
+
+#### Option 1 : Paquet RPM natif
+```bash
+bash build_rpm.sh
+sudo dnf install ~/rpmbuild/RPMS/noarch/auto-unlock-cryptnux-*.noarch.rpm
+```
+
+#### Option 2 : Flatpak (recommandé pour la portabilité)
+```bash
+bash build_flatpak.sh
+sudo flatpak install io.github.mentaldefeur.AutoUnlockCryptnux.flatpak
+```
+
+Voir [FEDORA_README.md](FEDORA_README.md) pour les détails complets.
+
+### Flatpak (Multi-distro)
 
 ```bash
-https://github.com/MentalDeFeur/UbuntuCryptDisk.git
-cd UbuntuCryptDisk
+# Installer Flatpak (Fedora, Ubuntu, etc.)
+sudo dnf install flatpak          # Fedora
+sudo apt install flatpak          # Ubuntu/Debian
 
-# Dépendances (backend clevis)
-sudo apt install tpm2-tools cryptsetup python3-pyqt5 \
-                 clevis-luks clevis-tpm2 clevis-initramfs
+# Ajouter Flathub
+sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
-# Ou avec systemd-cryptenroll (Ubuntu 22.04+)
-sudo apt install tpm2-tools cryptsetup python3-pyqt5
+# Installer depuis Flathub (une fois publié)
+sudo flatpak install flathub io.github.mentaldefeur.AutoUnlockCryptnux
+```
+
+Voir [FLATPAK_README.md](FLATPAK_README.md) pour les détails complets.o apt install tpm2-tools cryptsetup python3-pyqt5
 
 # Construire le .deb
 bash build_deb.sh
-sudo dpkg -i ubuntu-tpm2disk_1.0.0_all.deb
+sudo dpkg -i auto-unlock-cryptnux_1.0.0_all.deb
 ```
 
 ---
@@ -83,32 +106,36 @@ sudo dpkg -i ubuntu-tpm2disk_1.0.0_all.deb
 ### Interface graphique
 
 ```bash
-sudo ubuntu-tpm2disk-gui
+# Ubuntu/Debian
+sudo auto-unlock-cryptnux-gui
+
+# Fedora (RPM)
+sudo auto-unlock-cryptnux-gui
+
+# Flatpak
+flatpak run io.github.mentaldefeur.AutoUnlockCryptnux auto-unlock-cryptnux-gui
 ```
 
 ### Ligne de commande
 
 ```bash
-# Lister les partitions LUKS et leur statut TPM2
-sudo ubuntu-tpm2disk list
+# Lister les partitions LUKS
+sudo auto-unlock-cryptnux list
 
 # Lier une partition au TPM2 (PCR 7 = Secure Boot, recommandé)
-sudo ubuntu-tpm2disk bind /dev/sda5
+sudo auto-unlock-cryptnux bind /dev/sda5
 
 # Lier avec plusieurs PCR
-sudo ubuntu-tpm2disk bind /dev/sda5 --pcr 0,1,7
+sudo auto-unlock-cryptnux bind /dev/sda5 --pcr 0,1,7
 
 # Supprimer la liaison TPM2
-sudo ubuntu-tpm2disk unbind /dev/sda5
+sudo auto-unlock-cryptnux unbind /dev/sda5
 
 # Statut TPM2 et valeurs PCR actuelles
-sudo ubuntu-tpm2disk status
+sudo auto-unlock-cryptnux status
 
 # Vérifier les dépendances
-sudo ubuntu-tpm2disk check
-
-# Menu interactif
-sudo ubuntu-tpm2disk
+sudo auto-unlock-cryptnux check
 ```
 
 ---
@@ -202,8 +229,8 @@ sudo update-initramfs -u -k all
 ### Les PCR ont changé (MAJ BIOS ou Secure Boot modifié)
 
 ```bash
-sudo ubuntu-tpm2disk unbind /dev/sda5
-sudo ubuntu-tpm2disk bind /dev/sda5
+sudo auto-unlock-cryptnux unbind /dev/sda5
+sudo auto-unlock-cryptnux bind /dev/sda5
 ```
 
 ### Le mot de passe d'urgence
@@ -225,9 +252,9 @@ reste toujours valide** comme solution de secours.
 ## Structure du projet
 
 ```
-UbuntuCryptDisk/
-├── ubuntu_tpm2disk.py       # CLI — list, bind, unbind, status, check
-├── ubuntu_tpm2disk_gui.py   # Interface graphique PyQt5
+AutoUnlockCryptnux/
+├── auto_unlock_cryptnux.py       # CLI — list, bind, unbind, status, check
+├── auto_unlock_cryptnux_gui.py   # Interface graphique PyQt5
 ├── build_deb.sh             # Construction du paquet .deb
 ├── debian/                  # Métadonnées Debian
 │   ├── control

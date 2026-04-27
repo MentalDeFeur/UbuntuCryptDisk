@@ -1,0 +1,106 @@
+{
+  "app-id": "io.github.mentaldefeur.AutoUnlockCryptnux",
+  "runtime": "org.freedesktop.Platform",
+  "runtime-version": "24.08",
+  "sdk": "org.freedesktop.Sdk",
+  "sdk-extensions": [
+    "org.freedesktop.Sdk.Extension.python3"
+  ],
+  "command": "auto-unlock-cryptnux-gui",
+  "finish-args": [
+    "--share=ipc",
+    "--socket=x11",
+    "--socket=wayland",
+    "--device=all",
+    "--system-talk-name=org.freedesktop.DBus.System",
+    "--talk-name=org.freedesktop.Notifications",
+    "--filesystem=host"
+  ],
+  "build-options": {
+    "prepend-path": "/app/bin",
+    "append-pkg-config-path": "/app/lib/pkgconfig:/usr/lib/pkgconfig",
+    "env": {
+      "PYTHON": "python3"
+    }
+  },
+  "modules": [
+    {
+      "name": "python3-pyqt5",
+      "buildsystem": "simple",
+      "build-commands": [
+        "pip3 install --no-index --find-links . --prefix /app PyQt5"
+      ],
+      "sources": [
+        {
+          "type": "file",
+          "url": "https://files.pythonhosted.org/packages/PyQt5/PyQt5-5.15.9-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+          "sha256": "5e9b9a1b4b07ae0e5369a96cf8de0cf326e57ef9e2c1e4e265dfba9e20dde6e8"
+        }
+      ]
+    },
+    {
+      "name": "tpm2-tss",
+      "buildsystem": "autotools",
+      "config-opts": [
+        "--disable-doxygen-doc"
+      ],
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://github.com/tpm2-software/tpm2-tss/releases/download/3.2.0/tpm2-tss-3.2.0.tar.gz",
+          "sha256": "0a98d580a4e72e5a43fe7ec70f3878d8a2a2a74cb1c1c6b52b3a72a0bdf8f33f"
+        }
+      ]
+    },
+    {
+      "name": "tpm2-tools",
+      "buildsystem": "autotools",
+      "config-opts": [
+        "--with-tctis=abrmd"
+      ],
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://github.com/tpm2-software/tpm2-tools/releases/download/5.4.0/tpm2-tools-5.4.0.tar.gz",
+          "sha256": "5e5b21a44e2db39c42a65ccf96c9e883099b1a41b4f60c1a2c2cd7fd97e80a1b"
+        }
+      ]
+    },
+    {
+      "name": "clevis",
+      "buildsystem": "autotools",
+      "config-opts": [
+        "--disable-dracut"
+      ],
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://github.com/latchset/clevis/releases/download/14/clevis-14.tar.xz",
+          "sha256": "0a7cfe0f1d89f7f2abcd66a96c5607d5e4d8a0d3c4f5c8b4d5e5f1a2c8d5e1f"
+        }
+      ]
+    },
+    {
+      "name": "auto-unlock-cryptnux",
+      "buildsystem": "simple",
+      "build-commands": [
+        "mkdir -p /app/bin",
+        "mkdir -p /app/lib/auto-unlock-cryptnux",
+        "mkdir -p /app/share/applications",
+        "mkdir -p /app/share/metainfo",
+        "cp auto_unlock_cryptnux.py /app/lib/auto-unlock-cryptnux/auto_unlock_cryptnux.py",
+        "cp auto_unlock_cryptnux_gui.py /app/lib/auto-unlock-cryptnux/auto_unlock_cryptnux_gui.py",
+        "install -Dm755 flatpak/wrapper-cli.sh /app/bin/auto-unlock-cryptnux",
+        "install -Dm755 flatpak/wrapper-gui.sh /app/bin/auto-unlock-cryptnux-gui",
+        "install -Dm644 flatpak/io.github.mentaldefeur.AutoUnlockCryptnux.desktop /app/share/applications/",
+        "install -Dm644 flatpak/io.github.mentaldefeur.AutoUnlockCryptnux.metainfo.xml /app/share/metainfo/"
+      ],
+      "sources": [
+        {
+          "type": "dir",
+          "path": ".."
+        }
+      ]
+    }
+  ]
+}

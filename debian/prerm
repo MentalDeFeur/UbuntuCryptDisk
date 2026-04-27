@@ -3,9 +3,9 @@ set -e
 
 case "$1" in
     remove|purge)
-        echo "Suppression d'UbuntuTPM2Disk..."
+        echo "Suppression d'AutoUnlockCryptnux..."
         echo "Note : les liaisons TPM2 existantes ne sont PAS supprimées automatiquement."
-        echo "Pour supprimer une liaison : sudo ubuntu-tpm2disk unbind /dev/sdXY"
+        echo "Pour supprimer une liaison : sudo auto-unlock-cryptnux unbind /dev/sdXY"
         ;;
 esac
 

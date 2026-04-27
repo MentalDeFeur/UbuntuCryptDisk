@@ -1,9 +1,9 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: ubuntu-tpm2disk
-Source: https://github.com/example/UbuntuCryptDisk
+Upstream-Name: auto-unlock-cryptnux
+Source: https://github.com/example/AutoUnlockCryptnux
 
 Files: *
-Copyright: 2026 UbuntuTPM2Disk Project
+Copyright: 2026 AutoUnlockCryptnux Project
 License: MIT
 
 License: MIT
