@@ -1,5 +1,4 @@
 #!/bin/bash
-# Wrapper Flatpak GUI pour auto-unlock-cryptnux
+export PYTHONPATH="/app/lib/python3.12/site-packages:${PYTHONPATH}"
 export XCURSOR_SIZE="${XCURSOR_SIZE:-24}"
-export PYTHONPATH="/app/lib/auto-unlock-cryptnux:${PYTHONPATH}"
-exec /app/bin/python3 /app/lib/auto-unlock-cryptnux/auto_unlock_cryptnux_gui.py "$@"
+exec python3 /app/lib/auto-unlock-cryptnux/auto_unlock_cryptnux_gui.py "$@"

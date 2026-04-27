@@ -1,0 +1,55 @@
+name: auto-unlock-cryptnux
+base: core24
+version: '1.0.0'
+summary: Déverrouillage automatique LUKS via TPM2
+description: |
+  Outil graphique et CLI pour lier des partitions LUKS chiffrées au module
+  TPM2 du matériel, permettant un démarrage automatique sans saisie de mot
+  de passe.
+
+  Supporte clevis-tpm2 et systemd-cryptenroll.
+
+  Prérequis sur le système hôte : tpm2-tools, cryptsetup, et
+  clevis-luks (ou systemd 248+ pour systemd-cryptenroll).
+
+grade: stable
+confinement: classic
+
+architectures:
+  - build-on: [amd64]
+    build-for: [amd64]
+
+apps:
+  auto-unlock-cryptnux:
+    command: usr/bin/auto-unlock-cryptnux
+
+  auto-unlock-cryptnux-gui:
+    command: usr/bin/auto-unlock-cryptnux-gui
+
+parts:
+  app:
+    plugin: nil
+    source: .
+    stage-packages:
+      - python3
+      - python3-pyqt5
+    override-build: |
+      craftctl default
+      # Scripts Python
+      install -Dm644 auto_unlock_cryptnux.py \
+        $CRAFT_PART_INSTALL/usr/lib/auto-unlock-cryptnux/auto_unlock_cryptnux.py
+      install -Dm644 auto_unlock_cryptnux_gui.py \
+        $CRAFT_PART_INSTALL/usr/lib/auto-unlock-cryptnux/auto_unlock_cryptnux_gui.py
+      # Wrappers
+      mkdir -p $CRAFT_PART_INSTALL/usr/bin
+      cat > $CRAFT_PART_INSTALL/usr/bin/auto-unlock-cryptnux << 'WRAPPER'
+      #!/bin/bash
+      exec $SNAP/usr/bin/python3 $SNAP/usr/lib/auto-unlock-cryptnux/auto_unlock_cryptnux.py "$@"
+      WRAPPER
+      cat > $CRAFT_PART_INSTALL/usr/bin/auto-unlock-cryptnux-gui << 'WRAPPER'
+      #!/bin/bash
+      export PYTHONPATH="$SNAP/usr/lib/python3/dist-packages:${PYTHONPATH}"
+      exec $SNAP/usr/bin/python3 $SNAP/usr/lib/auto-unlock-cryptnux/auto_unlock_cryptnux_gui.py "$@"
+      WRAPPER
+      chmod 755 $CRAFT_PART_INSTALL/usr/bin/auto-unlock-cryptnux \
+                $CRAFT_PART_INSTALL/usr/bin/auto-unlock-cryptnux-gui

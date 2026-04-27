@@ -1,3 +1,3 @@
 #!/bin/bash
-# Wrapper Flatpak CLI pour auto-unlock-cryptnux
-exec /app/bin/python3 /app/lib/auto-unlock-cryptnux/auto_unlock_cryptnux.py "$@"
+export PYTHONPATH="/app/lib/python3.12/site-packages:${PYTHONPATH}"
+exec python3 /app/lib/auto-unlock-cryptnux/auto_unlock_cryptnux.py "$@"
